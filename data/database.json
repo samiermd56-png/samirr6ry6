@@ -1,0 +1,261 @@
+{
+  "users": [
+    {
+      "id": "usr_admin",
+      "username": "admin",
+      "email": "admin@digivault.io",
+      "passwordHash": "bba1e77d6691ad00aa8ae4eeb70af463fc825cda708c4ba6e79aa9186fa7587cec6eda430d8fe8cf62e5b2555445f2f47e9b3c3e280cfc32e01e1558484a4f16",
+      "salt": "413434a1372a71f9d3cf0490e777e666",
+      "balance": 100000,
+      "role": "admin",
+      "isBanned": false,
+      "totalSpent": 0,
+      "profileAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-10-01T07:25:16.781Z"
+    },
+    {
+      "id": "usr_demo",
+      "username": "demo_user",
+      "email": "samiermd56@gmail.com",
+      "passwordHash": "fc7143d58db1abd6096a673e92b70d7327b385260c963a4abe804f847487dc957dc151b265250858461a90ea480d43747f89b105fcd62b3805126c295a605d23",
+      "salt": "c2a647b35d301f6ea4e97379c741caa3",
+      "balance": 3500,
+      "role": "user",
+      "isBanned": false,
+      "totalSpent": 1250,
+      "profileAvatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-10-01T07:25:16.781Z"
+    },
+    {
+      "id": "usr_1790841407878_xn8x",
+      "username": "t6i7",
+      "email": "samiermd6@gmail.com",
+      "passwordHash": "2c61036d6e29ffb2d903e7b752d05cb5e3f6d2681a5f9751f87b8ef16c376351d0722c271b7fa95fdaf0f47f8fb4378e527de6fa3c769faf7199724e39fc7411",
+      "salt": "99e18bef7610dd60d17fd89b9458544b",
+      "balance": 50,
+      "role": "user",
+      "isBanned": false,
+      "totalSpent": 0,
+      "createdAt": "2026-10-01T07:56:47.878Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod_1",
+      "name": "CyberGuard VPN & Cloud Proxy Suite",
+      "category": "Security",
+      "price": 650,
+      "validityDays": 365,
+      "description": "Ultra-fast dedicated server VPN with military-grade 256-bit AES encryption, WireGuard protocol, unlimited bandwidth, and 60+ worldwide server locations. Instant activation credentials.",
+      "fileDownloadUrl": "https://download.digivault.io/packages/cyberguard-vpn-v4.2.zip",
+      "secretPassword": "CG-SECURE-KEY-88921-VIP",
+      "stock": 45,
+      "imageUrl": "/src/assets/images/product_vpn_suite_1790839132343.jpg",
+      "isFeatured": true,
+      "createdAt": "2026-10-01T07:25:16.781Z"
+    },
+    {
+      "id": "prod_2",
+      "name": "DevFlow Pro UI Component Library & SaaS Boilerplate",
+      "category": "Developer Tools",
+      "price": 1200,
+      "validityDays": 999,
+      "description": "Production-ready Next.js & React full-stack boilerplate with clean Tailwind CSS components, Stripe/LemonSqueezy billing, authentication, and database schemas. Commercial license included.",
+      "fileDownloadUrl": "https://github.com/digivault-repos/devflow-pro-master-release.zip",
+      "secretPassword": "DEVFLOW-LICENSE-TOKEN-2026-XQ",
+      "stock": 100,
+      "imageUrl": "/src/assets/images/product_saas_code_1790839144163.jpg",
+      "isFeatured": true,
+      "createdAt": "2026-10-01T07:25:16.781Z"
+    },
+    {
+      "id": "prod_3",
+      "name": "PrimeStream 4K Ultra Premium 1-Year Pass",
+      "category": "Entertainment",
+      "price": 450,
+      "validityDays": 365,
+      "description": "Private 4K HDR Ultra Streaming account with 4-device simultaneous access, Dolby Atmos audio, and offline download support. Guaranteed full 1-year replacement warranty.",
+      "fileDownloadUrl": "https://credentials.digivault.io/vault/primestream-credentials-guide.pdf",
+      "secretPassword": "PRIME-4K-USER:pass4k99120",
+      "stock": 18,
+      "imageUrl": "/src/assets/images/product_stream_pass_1790839154979.jpg",
+      "isFeatured": true,
+      "createdAt": "2026-10-01T07:25:16.781Z"
+    },
+    {
+      "id": "prod_4",
+      "name": "Master AI Engineering & Neural Networks Bootcamp",
+      "category": "Education",
+      "price": 850,
+      "validityDays": 180,
+      "description": "Complete hands-on curriculum: Transformers, LLM fine-tuning, RAG architectures, and agentic workflows. Includes 45 hours of video tutorials, Jupyter notebooks, and certificate.",
+      "fileDownloadUrl": "https://vault.digivault.io/courses/ai-engineering-complete-archive.tar.gz",
+      "secretPassword": "AI-ACADEMY-PASS-2026-NEURAL",
+      "stock": 50,
+      "imageUrl": "/src/assets/images/product_ai_course_1790839165323.jpg",
+      "isFeatured": true,
+      "createdAt": "2026-10-01T07:25:16.781Z"
+    },
+    {
+      "id": "prod_5",
+      "name": "Canva Pro Education Lifetime Team Seat",
+      "category": "Design & Graphics",
+      "price": 320,
+      "validityDays": 730,
+      "description": "Personal team invite to Canva Pro with unlimited brand kits, premium stock templates, background remover, magic studio AI tools, and 1TB cloud storage.",
+      "fileDownloadUrl": "https://invite.digivault.io/canva/join-team-auto-link.txt",
+      "secretPassword": "CANVA-TEAM-KEY-9934",
+      "stock": 35,
+      "imageUrl": "/src/assets/images/product_vpn_suite_1790839132343.jpg",
+      "isFeatured": false,
+      "createdAt": "2026-10-01T07:25:16.781Z"
+    }
+  ],
+  "purchases": [
+    {
+      "id": "pur_101",
+      "userId": "usr_demo",
+      "username": "demo_user",
+      "productId": "prod_1",
+      "productName": "CyberGuard VPN & Cloud Proxy Suite",
+      "category": "Security",
+      "price": 650,
+      "fileDownloadUrl": "https://download.digivault.io/packages/cyberguard-vpn-v4.2.zip",
+      "secretPassword": "CG-SECURE-KEY-88921-VIP",
+      "purchasedAt": "2026-09-28T07:25:16.781Z",
+      "expiresAt": "2027-09-28T07:25:16.781Z",
+      "status": "active"
+    }
+  ],
+  "deposits": [
+    {
+      "id": "dep_1",
+      "userId": "usr_demo",
+      "username": "demo_user",
+      "method": "bkash",
+      "accountNumber": "01712-345678",
+      "senderNumber": "01700-112233",
+      "trxId": "BK9A8B7C6D",
+      "amount": 1000,
+      "status": "approved",
+      "adminNote": "Verified & Credited",
+      "createdAt": "2026-09-27T07:25:16.781Z",
+      "updatedAt": "2026-09-27T07:25:16.781Z"
+    }
+  ],
+  "paymentGateways": [
+    {
+      "id": "gw_1",
+      "method": "bkash",
+      "number": "01712-345678",
+      "type": "Personal",
+      "instructions": "Go to your bKash App or dial *247# -> Select \"Send Money\" -> Enter the bKash Personal Number below -> Enter Amount -> After successful payment, copy the Transaction ID (TrxID) and submit it below.",
+      "minDeposit": 100,
+      "maxDeposit": 25000,
+      "isActive": true
+    },
+    {
+      "id": "gw_2",
+      "method": "nagad",
+      "number": "01898-765432",
+      "type": "Personal",
+      "instructions": "Open Nagad App or dial *167# -> Select \"Send Money\" -> Enter the Nagad Personal Number below -> Enter Amount -> Copy the 8-character TrxID and submit with your sending number.",
+      "minDeposit": 100,
+      "maxDeposit": 25000,
+      "isActive": true
+    },
+    {
+      "id": "gw_3",
+      "method": "rocket",
+      "number": "01911-223344-5",
+      "type": "Personal",
+      "instructions": "Open Rocket App or dial *322# -> Select \"Send Money\" -> Enter Rocket Account Number -> Submit Transaction ID.",
+      "minDeposit": 100,
+      "maxDeposit": 25000,
+      "isActive": true
+    }
+  ],
+  "promoCodes": [
+    {
+      "id": "promo_1",
+      "code": "WELCOME100",
+      "rewardType": "balance_credit",
+      "value": 100,
+      "maxUses": 500,
+      "usedCount": 14,
+      "usedByUsers": [],
+      "expiresAt": "2026-12-30T07:25:16.781Z",
+      "isActive": true
+    },
+    {
+      "id": "promo_2",
+      "code": "BONUS50",
+      "rewardType": "balance_credit",
+      "value": 50,
+      "maxUses": 1000,
+      "usedCount": 28,
+      "usedByUsers": [],
+      "expiresAt": "2026-11-30T07:25:16.781Z",
+      "isActive": true
+    }
+  ],
+  "notices": [
+    {
+      "id": "not_1",
+      "title": "Welcome to DigiVault Store & Telegram WebApp",
+      "content": "Purchase digital products with instant delivery. Your download links and license keys unlock immediately in My Purchases upon payment. For Telegram users, tap Open Web Store anytime!",
+      "type": "announcement",
+      "isActive": true,
+      "createdAt": "2026-10-01T07:25:16.781Z"
+    },
+    {
+      "id": "not_2",
+      "title": "Manual Deposit Verification Times",
+      "content": "All bKash, Nagad, and Rocket deposits are processed quickly. Make sure to input the exact TrxID and sender mobile number.",
+      "type": "info",
+      "isActive": true,
+      "createdAt": "2026-10-01T07:25:16.781Z"
+    }
+  ],
+  "supportTickets": [
+    {
+      "id": "tkt_1",
+      "userId": "usr_demo",
+      "username": "demo_user",
+      "subject": "Inquiry regarding WireGuard config download",
+      "message": "Hi, where do I download the WireGuard configuration file after purchase?",
+      "reply": "Hello! You can click \"My Purchases\" tab at the top or inside the dashboard. Click \"Download File\" to get your archive instantly.",
+      "status": "answered",
+      "createdAt": "2026-09-29T07:25:16.781Z",
+      "updatedAt": "2026-09-30T07:25:16.781Z"
+    }
+  ],
+  "adminLogs": [
+    {
+      "id": "log_1790839522242_tynz",
+      "action": "ADMIN_LOGIN",
+      "details": "Admin authenticated successfully",
+      "ip": "127.0.0.1",
+      "timestamp": "2026-10-01T07:25:22.242Z"
+    },
+    {
+      "id": "log_1",
+      "action": "SYSTEM_BOOT",
+      "details": "DigiVault production database initialized with permanent file persistence.",
+      "timestamp": "2026-10-01T07:25:16.781Z"
+    }
+  ],
+  "telegramBots": [],
+  "siteSettings": {
+    "siteName": "DigiVault",
+    "siteLogo": "🛡️",
+    "currencySymbol": "৳",
+    "contactEmail": "support@digivault.io",
+    "telegramChannel": "https://t.me/DigiVaultStore",
+    "telegramBotUser": "@DigiVaultShopBot",
+    "noticeMarquee": "⚡ Instant Digital Delivery 24/7 · 100% Guaranteed Replacements · bKash / Nagad / Rocket Accepted",
+    "minDeposit": 100,
+    "maxDeposit": 25000,
+    "defaultAdminPasswordChanged": false
+  }
+}

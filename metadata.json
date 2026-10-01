@@ -1,0 +1,7 @@
+{
+  "name": "DigiVault - Digital Products & Telegram WebApp Platform",
+  "description": "Production-ready digital product & service selling marketplace with user dashboard, instant wallet checkout, bKash/Nagad deposit system, 50+ admin management features, and seamless Telegram Bot WebApp integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
