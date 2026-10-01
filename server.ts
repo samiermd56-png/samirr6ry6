@@ -23,6 +23,11 @@ const APP_URL = (process.env.APP_URL || `http://localhost:${PORT}`).replace(/\/$
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Static serving for product images (ensures images load seamlessly inside Telegram Bot and WebApp)
+app.use('/images', express.static(path.resolve(process.cwd(), 'public/images')));
+app.use('/public', express.static(path.resolve(process.cwd(), 'public')));
+app.use('/src/assets/images', express.static(path.resolve(process.cwd(), 'src/assets/images')));
+
 // Simple in-memory session tokens store
 const userSessions = new Map<string, string>(); // token -> userId
 const adminSessions = new Set<string>(); // admin tokens

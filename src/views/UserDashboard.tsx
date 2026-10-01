@@ -12,7 +12,6 @@ import {
   CheckCircle,
   Copy,
   PlusCircle,
-  ExternalLink,
   MessageSquare,
   Tag,
   ShieldCheck,
@@ -22,7 +21,6 @@ import {
   Layers,
   Sparkles,
   Lock,
-  ArrowRight,
 } from 'lucide-react';
 
 interface UserDashboardProps {
@@ -41,9 +39,9 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
   setActiveTab,
   onOpenDeposit,
   onOpenAuth,
-  onOpenProfile,
+  onOpenProfile: _onOpenProfile,
   onSelectProduct,
-  siteName,
+  siteName: _siteName,
   currencySymbol,
 }) => {
   const { user, refreshUser } = useAuth();
@@ -72,7 +70,6 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch products and notices
     api.getProducts().then(res => res.success && setProducts(res.products)).catch(console.error);
     api.getNotices().then(res => res.success && setNotices(res.notices)).catch(console.error);
 
@@ -153,106 +150,97 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6 space-y-8">
+    <div className="mx-auto max-w-7xl px-2.5 sm:px-6 py-3 sm:py-6 space-y-4 sm:space-y-6">
       
       {/* 1. Global Live Notice Strip */}
       {notices.length > 0 && (
-        <div className="flex items-center gap-2 p-2.5 px-3.5 rounded-xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/40 text-xs text-indigo-900 dark:text-indigo-200">
-          <Info className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
-          <div className="flex-1 overflow-hidden">
-            <span className="font-semibold">{notices[0].title}:</span>{' '}
-            <span className="text-indigo-800/80 dark:text-indigo-300/80">{notices[0].content}</span>
+        <div className="flex items-center gap-2 p-2 px-3 rounded-lg bg-[#0a0a0a] border border-zinc-800 text-[11px] sm:text-xs text-zinc-300">
+          <Info className="w-3 h-3 text-indigo-400 shrink-0" />
+          <div className="flex-1 overflow-hidden truncate">
+            <span className="font-semibold text-white">{notices[0].title}:</span>{' '}
+            <span className="text-zinc-400">{notices[0].content}</span>
           </div>
         </div>
       )}
 
-      {/* 2. Dynamic User Overview Stats Strip */}
+      {/* 2. Dynamic User Overview Stats Strip - 3 columns side-by-side even on mobile */}
       {user ? (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-3">
           {/* Wallet Balance Card */}
-          <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs flex items-center justify-between">
-            <div className="space-y-1">
-              <span className="text-xs text-slate-500 font-medium">Current Wallet Balance</span>
-              <p className="text-2xl font-bold font-mono text-slate-900 dark:text-white tabular-nums">
+          <div className="p-2 sm:p-3 rounded-xl bg-[#0a0a0a] border border-zinc-850 shadow-xs flex flex-col justify-between">
+            <div className="space-y-0.5">
+              <span className="text-[10px] sm:text-xs text-zinc-400 font-medium block truncate">Balance</span>
+              <p className="text-xs sm:text-lg font-bold font-mono text-white tabular-nums">
                 {currencySymbol}{user.balance.toFixed(0)}
               </p>
-              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
-                Ready for instant checkout
-              </span>
             </div>
             <button
               onClick={onOpenDeposit}
-              className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors shadow-xs"
+              className="mt-1.5 flex items-center justify-center gap-1 py-1 px-1.5 text-[10px] sm:text-xs font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors shadow-xs"
             >
-              <PlusCircle className="w-3.5 h-3.5" />
-              <span>Deposit</span>
+              <PlusCircle className="w-2.5 h-2.5" />
+              <span>Add</span>
             </button>
           </div>
 
           {/* Purchased Items Card */}
-          <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs flex items-center justify-between">
-            <div className="space-y-1">
-              <span className="text-xs text-slate-500 font-medium">Purchased Items Vault</span>
-              <p className="text-2xl font-bold font-mono text-slate-900 dark:text-white tabular-nums">
+          <div className="p-2 sm:p-3 rounded-xl bg-[#0a0a0a] border border-zinc-850 shadow-xs flex flex-col justify-between">
+            <div className="space-y-0.5">
+              <span className="text-[10px] sm:text-xs text-zinc-400 font-medium block truncate">Purchases</span>
+              <p className="text-xs sm:text-lg font-bold font-mono text-white tabular-nums">
                 {purchases.length}
               </p>
-              <button
-                onClick={() => setActiveTab('purchases')}
-                className="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium hover:underline flex items-center gap-1"
-              >
-                <span>View unlocked credentials</span>
-                <ChevronRight className="w-3 h-3" />
-              </button>
             </div>
-            <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400">
-              <ShoppingBag className="w-4 h-4" />
-            </div>
+            <button
+              onClick={() => setActiveTab('purchases')}
+              className="mt-1.5 text-[10px] sm:text-xs text-indigo-400 font-medium hover:underline flex items-center justify-center gap-0.5 py-1"
+            >
+              <span>Vault</span>
+              <ChevronRight className="w-2.5 h-2.5" />
+            </button>
           </div>
 
           {/* Support Desk Card */}
-          <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs flex items-center justify-between">
-            <div className="space-y-1">
-              <span className="text-xs text-slate-500 font-medium">Customer Support Desk</span>
-              <p className="text-2xl font-bold font-mono text-slate-900 dark:text-white tabular-nums">
+          <div className="p-2 sm:p-3 rounded-xl bg-[#0a0a0a] border border-zinc-850 shadow-xs flex flex-col justify-between">
+            <div className="space-y-0.5">
+              <span className="text-[10px] sm:text-xs text-zinc-400 font-medium block truncate">Support</span>
+              <p className="text-xs sm:text-lg font-bold font-mono text-white tabular-nums">
                 {tickets.length}
               </p>
-              <button
-                onClick={() => setActiveTab('support')}
-                className="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium hover:underline flex items-center gap-1"
-              >
-                <span>Help tickets & status</span>
-                <ChevronRight className="w-3 h-3" />
-              </button>
             </div>
-            <div className="p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400">
-              <MessageSquare className="w-4 h-4" />
-            </div>
+            <button
+              onClick={() => setActiveTab('support')}
+              className="mt-1.5 text-[10px] sm:text-xs text-indigo-400 font-medium hover:underline flex items-center justify-center gap-0.5 py-1"
+            >
+              <span>Tickets</span>
+              <ChevronRight className="w-2.5 h-2.5" />
+            </button>
           </div>
         </div>
       ) : (
         /* Welcome Banner for Guest Visitors */
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white p-6 sm:p-8 shadow-sm">
-          <div className="max-w-2xl space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/10 text-indigo-200 backdrop-blur-xs">
-              <Sparkles className="w-3 h-3 text-indigo-300" />
+        <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-r from-zinc-950 via-[#0a0a0a] to-black border border-zinc-800 text-white p-3.5 sm:p-6 shadow-sm">
+          <div className="max-w-2xl space-y-2">
+            <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-zinc-800/80 text-zinc-300">
+              <Sparkles className="w-3 h-3 text-indigo-400" />
               <span>Instant Digital Product Delivery & Telegram WebApp</span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold font-['Syne',sans-serif] tracking-tight">
+            <h1 className="text-sm sm:text-xl font-bold font-['Syne',sans-serif] tracking-tight">
               Premium Digital Goods, Developer Tools & Accounts
             </h1>
-            <p className="text-xs sm:text-sm text-indigo-100/80 leading-relaxed">
+            <p className="text-[11px] sm:text-xs text-zinc-400 leading-relaxed">
               Instant access to verified VPN suites, boilerplate source code, course bundles, and premium passes. Claim ৳50 welcome bonus upon free registration.
             </p>
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <div className="pt-1 flex flex-wrap items-center gap-2">
               <button
                 onClick={() => onOpenAuth('register')}
-                className="px-4 py-2 text-xs font-semibold text-slate-900 bg-white rounded-lg hover:bg-slate-100 transition-colors shadow-xs"
+                className="px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-black bg-white rounded-md hover:bg-zinc-200 transition-colors shadow-xs"
               >
                 Create Account (+৳50 Gift)
               </button>
               <button
                 onClick={() => setActiveTab('store')}
-                className="px-4 py-2 text-xs font-semibold text-white bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+                className="px-3 py-1.5 text-[11px] sm:text-xs font-semibold text-white bg-zinc-800 hover:bg-zinc-700 rounded-md transition-colors"
               >
                 Browse Products
               </button>
@@ -261,49 +249,49 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
         </div>
       )}
 
-      {/* Main Tabs Navigation (Store, Purchases, Deposit, Support) */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 border-b border-slate-200 dark:border-slate-800 scrollbar-none">
+      {/* Main Tabs Navigation */}
+      <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto pb-1 border-b border-zinc-900 scrollbar-none">
         <button
           onClick={() => setActiveTab('store')}
-          className={`px-3.5 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
+          className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors whitespace-nowrap ${
             activeTab === 'store'
-              ? 'bg-indigo-600 text-white shadow-xs dark:bg-indigo-500'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-zinc-800 text-white shadow-xs'
+              : 'text-zinc-400 hover:text-white'
           }`}
         >
-          Product Catalog
+          Products
         </button>
         <button
           onClick={() => setActiveTab('purchases')}
-          className={`px-3.5 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5 ${
+          className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'purchases'
-              ? 'bg-indigo-600 text-white shadow-xs dark:bg-indigo-500'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-zinc-800 text-white shadow-xs'
+              : 'text-zinc-400 hover:text-white'
           }`}
         >
           <span>My Purchases</span>
           {purchases.length > 0 && (
-            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-white/20">
+            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-indigo-500/30 text-indigo-300">
               {purchases.length}
             </span>
           )}
         </button>
         <button
           onClick={() => setActiveTab('deposit')}
-          className={`px-3.5 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
+          className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors whitespace-nowrap ${
             activeTab === 'deposit'
-              ? 'bg-indigo-600 text-white shadow-xs dark:bg-indigo-500'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-zinc-800 text-white shadow-xs'
+              : 'text-zinc-400 hover:text-white'
           }`}
         >
-          Deposit Ledger & History
+          Deposit History
         </button>
         <button
           onClick={() => setActiveTab('support')}
-          className={`px-3.5 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap ${
+          className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors whitespace-nowrap ${
             activeTab === 'support'
-              ? 'bg-indigo-600 text-white shadow-xs dark:bg-indigo-500'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-zinc-800 text-white shadow-xs'
+              : 'text-zinc-400 hover:text-white'
           }`}
         >
           Support Desk
@@ -311,22 +299,22 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
       </div>
 
       {/* ======================================================== */}
-      {/* TAB 1: PRODUCT CATALOG & STORE */}
+      {/* TAB 1: PRODUCT CATALOG & STORE (2 ITEMS SIDE-BY-SIDE ON MOBILE) */}
       {/* ======================================================== */}
       {activeTab === 'store' && (
-        <section className="space-y-6">
+        <section className="space-y-4">
           {/* Controls: Search & Category Filter */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
             {/* Category Segmented Controls */}
-            <div className="flex items-center gap-1 overflow-x-auto p-1 bg-slate-100 dark:bg-slate-800/80 rounded-xl scrollbar-none">
+            <div className="flex items-center gap-1 overflow-x-auto p-1 bg-[#0a0a0a] border border-zinc-850 rounded-lg scrollbar-none">
               {categories.map(cat => (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap ${
+                  className={`px-2.5 py-1 text-[11px] sm:text-xs font-medium rounded-md transition-colors whitespace-nowrap ${
                     selectedCategory === cat
-                      ? 'bg-white text-slate-900 shadow-xs dark:bg-slate-700 dark:text-white'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                      ? 'bg-zinc-800 text-white shadow-xs'
+                      : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   {cat}
@@ -335,74 +323,84 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
             </div>
 
             {/* Search Input */}
-            <div className="relative w-full sm:w-64">
-              <Search className="absolute left-3 top-2.5 w-3.5 h-3.5 text-slate-400" />
+            <div className="relative w-full sm:w-60">
+              <Search className="absolute left-2.5 top-2 w-3 h-3 text-zinc-500" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                placeholder="Search products & tools..."
-                className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                placeholder="Search products..."
+                className="w-full pl-8 pr-2.5 py-1.5 text-xs rounded-lg border border-zinc-800 bg-[#0a0a0a] text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-700"
               />
             </div>
           </div>
 
-          {/* Product Cards Grid: 3-column desktop, 2-column tablet */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Product Cards Grid: TWO ITEMS SIDE-BY-SIDE ON MOBILE (grid-cols-2) */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3.5">
             {filteredProducts.map(product => (
               <div
                 key={product.id}
-                className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden"
+                className="group relative rounded-xl bg-[#0a0a0a] border border-zinc-850 hover:border-zinc-700 transition-all flex flex-col justify-between overflow-hidden shadow-xs"
               >
                 <div>
-                  {/* Lead with imagery */}
-                  <div className="aspect-4/3 w-full bg-slate-100 dark:bg-slate-800 overflow-hidden relative">
+                  {/* Lead imagery with graceful fallback for Telegram and web */}
+                  <div className="aspect-[4/3] w-full bg-zinc-900 overflow-hidden relative">
                     <img
                       src={product.imageUrl}
                       alt={product.name}
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
                       onError={(e) => {
-                        (e.target as HTMLElement).style.display = 'none';
+                        const target = e.currentTarget;
+                        target.style.display = 'none';
+                        const fallback = target.nextElementSibling as HTMLElement;
+                        if (fallback) fallback.style.display = 'flex';
                       }}
                     />
+                    <div
+                      style={{ display: 'none' }}
+                      className="absolute inset-0 bg-gradient-to-tr from-zinc-950 via-zinc-900 to-indigo-950/40 items-center justify-center p-2 text-center flex-col gap-1"
+                    >
+                      <Layers className="w-4 h-4 text-indigo-400" />
+                      <span className="text-[9px] font-semibold text-zinc-300 truncate max-w-full">{product.name}</span>
+                    </div>
                   </div>
 
                   {/* Clean unboxed metadata */}
-                  <div className="p-4 space-y-2">
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
-                      <span>{product.category}</span>
+                  <div className="p-2 sm:p-3 space-y-1">
+                    <div className="flex items-center gap-1 text-[9px] sm:text-[11px] text-zinc-400">
+                      <span className="truncate max-w-[65px] sm:max-w-none">{product.category}</span>
                       <span aria-hidden="true">·</span>
-                      <span className="tabular-nums">{product.validityDays} Days</span>
-                      <span aria-hidden="true">·</span>
-                      <span className="text-emerald-600 dark:text-emerald-400">Instant Unlocked</span>
+                      <span className="tabular-nums whitespace-nowrap">{product.validityDays}d</span>
+                      <span aria-hidden="true" className="hidden sm:inline">·</span>
+                      <span className="text-emerald-400 hidden sm:inline">Instant</span>
                     </div>
 
-                    <h3 className="text-sm font-bold font-['Syne',sans-serif] text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                    <h3 className="text-xs sm:text-sm font-bold font-['Syne',sans-serif] text-white group-hover:text-indigo-400 transition-colors line-clamp-1 sm:line-clamp-2 leading-tight">
                       {product.name}
                     </h3>
 
-                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                    <p className="text-[10px] sm:text-xs text-zinc-400 line-clamp-1 sm:line-clamp-2 leading-relaxed">
                       {product.description}
                     </p>
                   </div>
                 </div>
 
                 {/* Price and Instant Purchase Action */}
-                <div className="p-4 pt-0 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between mt-2">
+                <div className="p-2 sm:p-3 pt-0 border-t border-zinc-900 flex items-center justify-between mt-1">
                   <div>
-                    <span className="text-[11px] text-slate-400 block">Price</span>
-                    <span className="text-base font-extrabold text-slate-900 dark:text-white tabular-nums font-mono">
+                    <span className="text-[9px] sm:text-[10px] text-zinc-500 block leading-none">Price</span>
+                    <span className="text-xs sm:text-sm font-extrabold text-white tabular-nums font-mono">
                       {currencySymbol}{product.price}
                     </span>
                   </div>
 
                   <button
                     onClick={() => onSelectProduct(product)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition-colors shadow-xs"
+                    className="flex items-center gap-0.5 px-2 py-1 sm:px-2.5 sm:py-1 text-[10px] sm:text-xs font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors shadow-xs"
                   >
-                    <span>View & Buy</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
+                    <span>Buy</span>
+                    <ChevronRight className="w-3 h-3" />
                   </button>
                 </div>
               </div>
@@ -410,20 +408,20 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
           </div>
 
           {filteredProducts.length === 0 && (
-            <div className="text-center py-12 text-slate-500 text-xs">
+            <div className="text-center py-10 text-zinc-500 text-xs">
               No products found matching &quot;{searchQuery}&quot;
             </div>
           )}
 
           {/* Promo Code Box */}
-          <div className="mt-8 p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="space-y-1 text-center sm:text-left">
-              <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs font-semibold text-slate-900 dark:text-white">
-                <Tag className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+          <div className="mt-6 p-3.5 sm:p-4 rounded-xl bg-[#0a0a0a] border border-zinc-850 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="space-y-0.5 text-center sm:text-left">
+              <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs font-semibold text-white">
+                <Tag className="w-3 h-3 text-indigo-400" />
                 <span>Have a Promo Code or Voucher?</span>
               </div>
-              <p className="text-xs text-slate-500">
-                Redeem promo codes like <strong>WELCOME100</strong> for instant wallet credits.
+              <p className="text-[11px] text-zinc-400">
+                Redeem codes like <strong>WELCOME100</strong> for instant wallet credits.
               </p>
             </div>
 
@@ -433,12 +431,12 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
                 value={promoCodeInput}
                 onChange={e => setPromoCodeInput(e.target.value.toUpperCase())}
                 placeholder="PROMO CODE"
-                className="px-3 py-1.5 text-xs font-mono uppercase rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                className="px-2.5 py-1 text-xs font-mono uppercase rounded-md border border-zinc-800 bg-black text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-700"
               />
               <button
                 type="submit"
                 disabled={promoLoading}
-                className="px-3.5 py-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 whitespace-nowrap"
+                className="px-3 py-1 text-xs font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors disabled:opacity-50 whitespace-nowrap"
               >
                 {promoLoading ? '...' : 'Redeem'}
               </button>
@@ -447,10 +445,10 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
 
           {promoStatus && (
             <div
-              className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
+              className={`p-2.5 rounded-lg text-xs flex items-center gap-2 ${
                 promoStatus.type === 'success'
-                  ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300'
-                  : 'bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/40 dark:text-rose-300'
+                  ? 'bg-emerald-950/40 text-emerald-300 border border-emerald-800/40'
+                  : 'bg-rose-950/40 text-rose-300 border border-rose-800/40'
               }`}
             >
               {promoStatus.type === 'success' ? (
@@ -471,86 +469,86 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-base font-bold font-['Syne',sans-serif] text-slate-900 dark:text-white">
+              <h2 className="text-sm sm:text-base font-bold font-['Syne',sans-serif] text-white">
                 My Unlocked Digital Purchases
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-[11px] sm:text-xs text-zinc-400">
                 Download links, configuration archives, and secret license passwords
               </p>
             </div>
-            <span className="text-xs text-slate-500 tabular-nums">
-              Total {purchases.length} Items Unlocked
+            <span className="text-xs text-zinc-400 tabular-nums">
+              Total {purchases.length} Items
             </span>
           </div>
 
           {!user ? (
-            <div className="text-center py-12 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              <Lock className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Please Sign In</h3>
-              <p className="text-xs text-slate-500 mt-1 mb-4">
+            <div className="text-center py-10 p-5 rounded-xl bg-[#0a0a0a] border border-zinc-850">
+              <Lock className="w-6 h-6 text-zinc-500 mx-auto mb-2" />
+              <h3 className="text-xs sm:text-sm font-semibold text-white">Please Sign In</h3>
+              <p className="text-xs text-zinc-400 mt-1 mb-3">
                 Sign in to view your purchased licenses and download keys.
               </p>
               <button
                 onClick={() => onOpenAuth('login')}
-                className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors"
+                className="px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors"
               >
                 Sign In Now
               </button>
             </div>
           ) : purchases.length === 0 ? (
-            <div className="text-center py-12 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              <ShoppingBag className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">No Purchases Yet</h3>
-              <p className="text-xs text-slate-500 mt-1 mb-4">
+            <div className="text-center py-10 p-5 rounded-xl bg-[#0a0a0a] border border-zinc-850">
+              <ShoppingBag className="w-6 h-6 text-zinc-500 mx-auto mb-2" />
+              <h3 className="text-xs sm:text-sm font-semibold text-white">No Purchases Yet</h3>
+              <p className="text-xs text-zinc-400 mt-1 mb-3">
                 Browse our product catalog to buy software, accounts, or templates.
               </p>
               <button
                 onClick={() => setActiveTab('store')}
-                className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors"
+                className="px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors"
               >
-                Explore Products Store
+                Explore Products
               </button>
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {purchases.map(item => (
                 <div
                   key={item.id}
-                  className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+                  className="p-3 sm:p-4 rounded-xl bg-[#0a0a0a] border border-zinc-850 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3"
                 >
-                  <div className="space-y-1.5 flex-1">
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <div className="space-y-1 flex-1">
+                    <div className="flex items-center gap-2 text-[10px] sm:text-xs text-zinc-400">
                       <span>{item.category}</span>
                       <span aria-hidden="true">·</span>
-                      <span className="text-emerald-600 dark:text-emerald-400 font-medium">Active License</span>
+                      <span className="text-emerald-400 font-medium">Active License</span>
                       <span aria-hidden="true">·</span>
                       <span>Order #{item.id.slice(-6).toUpperCase()}</span>
                     </div>
 
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                    <h3 className="text-xs sm:text-sm font-bold text-white">
                       {item.productName}
                     </h3>
 
                     {/* Secret Password Reveal Box */}
                     {item.secretPassword && (
-                      <div className="flex items-center gap-2 pt-1">
-                        <span className="text-xs text-slate-500 flex items-center gap-1">
-                          <Key className="w-3 h-3 text-amber-500" /> License Key / Password:
+                      <div className="flex items-center gap-1.5 pt-0.5">
+                        <span className="text-[11px] text-zinc-400 flex items-center gap-1">
+                          <Key className="w-2.5 h-2.5 text-amber-400" /> Key:
                         </span>
-                        <code className="text-xs font-mono font-bold bg-slate-100 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
+                        <code className="text-xs font-mono font-bold bg-zinc-900 text-indigo-300 px-1.5 py-0.5 rounded border border-zinc-800">
                           {item.secretPassword}
                         </code>
                         <button
                           onClick={() => copyToClipboard(item.secretPassword || '', item.id)}
-                          className="p-1 text-slate-400 hover:text-indigo-600 transition-colors"
+                          className="p-1 text-zinc-400 hover:text-white transition-colors"
                           title="Copy Password"
                         >
-                          {copiedKey === item.id ? <CheckCircle className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                          {copiedKey === item.id ? <CheckCircle className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
                         </button>
                       </div>
                     )}
 
-                    <div className="text-[11px] text-slate-400">
+                    <div className="text-[10px] text-zinc-500">
                       Purchased: {new Date(item.purchasedAt).toLocaleDateString()} · Expires: {new Date(item.expiresAt).toLocaleDateString()}
                     </div>
                   </div>
@@ -561,9 +559,9 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
                       href={item.fileDownloadUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 md:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors shadow-xs"
+                      className="flex-1 md:flex-initial flex items-center justify-center gap-1 px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors shadow-xs"
                     >
-                      <Download className="w-3.5 h-3.5" />
+                      <Download className="w-3 h-3" />
                       <span>Download File</span>
                     </a>
                   </div>
@@ -581,89 +579,89 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-base font-bold font-['Syne',sans-serif] text-slate-900 dark:text-white">
+              <h2 className="text-sm sm:text-base font-bold font-['Syne',sans-serif] text-white">
                 Deposit History & Transaction Ledger
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-[11px] sm:text-xs text-zinc-400">
                 Track all your manual bKash, Nagad, and Rocket wallet deposit requests
               </p>
             </div>
             <button
               onClick={onOpenDeposit}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors shadow-xs"
+              className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors shadow-xs"
             >
-              <PlusCircle className="w-3.5 h-3.5" />
+              <PlusCircle className="w-3 h-3" />
               <span>New Deposit</span>
             </button>
           </div>
 
           {!user ? (
-            <div className="text-center py-12 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              <Lock className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Sign In to View Deposits</h3>
-              <p className="text-xs text-slate-500 mt-1 mb-4">
+            <div className="text-center py-10 p-5 rounded-xl bg-[#0a0a0a] border border-zinc-850">
+              <Lock className="w-6 h-6 text-zinc-500 mx-auto mb-2" />
+              <h3 className="text-xs sm:text-sm font-semibold text-white">Sign In to View Deposits</h3>
+              <p className="text-xs text-zinc-400 mt-1 mb-3">
                 Access your deposit history and submitted Transaction IDs.
               </p>
               <button
                 onClick={() => onOpenAuth('login')}
-                className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors"
+                className="px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors"
               >
                 Sign In Now
               </button>
             </div>
           ) : deposits.length === 0 ? (
-            <div className="text-center py-12 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              <Wallet className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">No Deposits Recorded</h3>
-              <p className="text-xs text-slate-500 mt-1 mb-4">
+            <div className="text-center py-10 p-5 rounded-xl bg-[#0a0a0a] border border-zinc-850">
+              <Wallet className="w-6 h-6 text-zinc-500 mx-auto mb-2" />
+              <h3 className="text-xs sm:text-sm font-semibold text-white">No Deposits Recorded</h3>
+              <p className="text-xs text-zinc-400 mt-1 mb-3">
                 You haven&apos;t submitted any deposit requests yet.
               </p>
               <button
                 onClick={onOpenDeposit}
-                className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors"
+                className="px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors"
               >
                 Add Funds via bKash / Nagad
               </button>
             </div>
           ) : (
-            <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+            <div className="overflow-x-auto rounded-xl border border-zinc-850 bg-[#0a0a0a]">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-500 border-b border-slate-200 dark:border-slate-800">
+                <thead className="bg-zinc-900/60 text-zinc-400 border-b border-zinc-850">
                   <tr>
-                    <th className="py-3 px-4 font-semibold">Method</th>
-                    <th className="py-3 px-4 font-semibold">Amount</th>
-                    <th className="py-3 px-4 font-semibold">Sender Number</th>
-                    <th className="py-3 px-4 font-semibold">Transaction ID (TrxID)</th>
-                    <th className="py-3 px-4 font-semibold">Date</th>
-                    <th className="py-3 px-4 font-semibold">Status</th>
+                    <th className="py-2.5 px-3 font-semibold">Method</th>
+                    <th className="py-2.5 px-3 font-semibold">Amount</th>
+                    <th className="py-2.5 px-3 font-semibold">Sender Number</th>
+                    <th className="py-2.5 px-3 font-semibold">TrxID</th>
+                    <th className="py-2.5 px-3 font-semibold">Date</th>
+                    <th className="py-2.5 px-3 font-semibold">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                <tbody className="divide-y divide-zinc-900">
                   {deposits.map(dep => (
-                    <tr key={dep.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
-                      <td className="py-3 px-4 font-semibold uppercase text-slate-900 dark:text-white">
+                    <tr key={dep.id} className="hover:bg-zinc-900/40">
+                      <td className="py-2.5 px-3 font-semibold uppercase text-white">
                         {dep.method}
                       </td>
-                      <td className="py-3 px-4 font-mono font-bold tabular-nums text-slate-900 dark:text-white">
+                      <td className="py-2.5 px-3 font-mono font-bold tabular-nums text-white">
                         {currencySymbol}{dep.amount}
                       </td>
-                      <td className="py-3 px-4 font-mono text-slate-600 dark:text-slate-400">
+                      <td className="py-2.5 px-3 font-mono text-zinc-400">
                         {dep.senderNumber}
                       </td>
-                      <td className="py-3 px-4 font-mono font-medium text-indigo-600 dark:text-indigo-400">
+                      <td className="py-2.5 px-3 font-mono font-medium text-indigo-400">
                         {dep.trxId}
                       </td>
-                      <td className="py-3 px-4 text-slate-400 tabular-nums">
-                        {new Date(dep.createdAt).toLocaleString()}
+                      <td className="py-2.5 px-3 text-zinc-500 tabular-nums">
+                        {new Date(dep.createdAt).toLocaleDateString()}
                       </td>
-                      <td className="py-3 px-4">
+                      <td className="py-2.5 px-3">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold ${
+                          className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold ${
                             dep.status === 'approved'
-                              ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300'
+                              ? 'bg-emerald-950/50 text-emerald-300 border border-emerald-800/40'
                               : dep.status === 'rejected'
-                              ? 'bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300'
-                              : 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300'
+                              ? 'bg-rose-950/50 text-rose-300 border border-rose-800/40'
+                              : 'bg-amber-950/50 text-amber-300 border border-amber-800/40'
                           }`}
                         >
                           {dep.status === 'approved' && '✓ Approved'}
@@ -684,33 +682,33 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
       {/* TAB 4: SUPPORT DESK & TICKETS */}
       {/* ======================================================== */}
       {activeTab === 'support' && (
-        <section className="space-y-6">
-          <div className="space-y-1">
-            <h2 className="text-base font-bold font-['Syne',sans-serif] text-slate-900 dark:text-white">
+        <section className="space-y-4">
+          <div className="space-y-0.5">
+            <h2 className="text-sm sm:text-base font-bold font-['Syne',sans-serif] text-white">
               Support Desk & Help Center
             </h2>
-            <p className="text-xs text-slate-500">
-              Need assistance with product access, deposit questions, or custom requests? Submit a ticket below.
+            <p className="text-[11px] sm:text-xs text-zinc-400">
+              Need assistance with product access or deposit verification? Submit a ticket below.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Create Ticket Form */}
-            <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs">
-              <h3 className="text-xs font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-1.5">
-                <MessageSquare className="w-3.5 h-3.5 text-indigo-600" />
+            <div className="p-3.5 sm:p-4 rounded-xl bg-[#0a0a0a] border border-zinc-850 shadow-xs">
+              <h3 className="text-xs font-semibold text-white mb-2.5 flex items-center gap-1.5">
+                <MessageSquare className="w-3 h-3 text-indigo-400" />
                 <span>Open New Support Ticket</span>
               </h3>
 
               {ticketStatus && (
-                <div className="mb-4 p-2.5 rounded-lg text-xs bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border border-indigo-200">
+                <div className="mb-3 p-2 rounded-lg text-xs bg-indigo-950/40 text-indigo-300 border border-indigo-800/40">
                   {ticketStatus}
                 </div>
               )}
 
-              <form onSubmit={handleCreateTicket} className="space-y-3">
+              <form onSubmit={handleCreateTicket} className="space-y-2.5">
                 <div>
-                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-[11px] font-medium text-zinc-400 mb-1">
                     Subject
                   </label>
                   <input
@@ -718,82 +716,82 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
                     required
                     value={ticketSubject}
                     onChange={e => setTicketSubject(e.target.value)}
-                    placeholder="e.g. Deposit confirmation or product file question"
-                    className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                    placeholder="e.g. Deposit confirmation or product question"
+                    className="w-full px-2.5 py-1.5 text-xs rounded-md border border-zinc-800 bg-black text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-700"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-                    Detailed Message
+                  <label className="block text-[11px] font-medium text-zinc-400 mb-1">
+                    Message
                   </label>
                   <textarea
-                    rows={4}
+                    rows={3}
                     required
                     value={ticketMessage}
                     onChange={e => setTicketMessage(e.target.value)}
                     placeholder="Provide details about your query..."
-                    className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 resize-none"
+                    className="w-full px-2.5 py-1.5 text-xs rounded-md border border-zinc-800 bg-black text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-700 resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={ticketLoading}
-                  className="w-full py-2.5 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
+                  className="w-full py-2 text-xs font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors disabled:opacity-50"
                 >
-                  {ticketLoading ? 'Submitting...' : 'Submit Support Ticket'}
+                  {ticketLoading ? 'Submitting...' : 'Submit Ticket'}
                 </button>
               </form>
             </div>
 
             {/* Ticket History */}
-            <div className="space-y-3">
-              <h3 className="text-xs font-semibold text-slate-900 dark:text-white">
+            <div className="space-y-2.5">
+              <h3 className="text-xs font-semibold text-white">
                 Your Tickets ({tickets.length})
               </h3>
 
               {tickets.length === 0 ? (
-                <div className="p-8 text-center rounded-2xl bg-slate-50 dark:bg-slate-800/40 text-slate-400 text-xs">
+                <div className="p-6 text-center rounded-xl bg-[#0a0a0a] border border-zinc-850 text-zinc-500 text-xs">
                   No support tickets found. We are here to help whenever you need!
                 </div>
               ) : (
                 tickets.map(ticket => (
                   <div
                     key={ticket.id}
-                    className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-2 text-xs"
+                    className="p-3 rounded-xl bg-[#0a0a0a] border border-zinc-850 space-y-1.5 text-xs"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-slate-900 dark:text-white">{ticket.subject}</span>
+                      <span className="font-bold text-white">{ticket.subject}</span>
                       <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
+                        className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${
                           ticket.status === 'answered'
-                            ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50'
+                            ? 'bg-emerald-950/50 text-emerald-300'
                             : ticket.status === 'closed'
-                            ? 'bg-slate-100 text-slate-600'
-                            : 'bg-amber-50 text-amber-700'
+                            ? 'bg-zinc-800 text-zinc-400'
+                            : 'bg-amber-950/50 text-amber-300'
                         }`}
                       >
                         {ticket.status.toUpperCase()}
                       </span>
                     </div>
 
-                    <p className="text-slate-600 dark:text-slate-400 whitespace-pre-line">
+                    <p className="text-zinc-400 whitespace-pre-line text-[11px]">
                       {ticket.message}
                     </p>
 
                     {ticket.reply && (
-                      <div className="p-2.5 rounded-lg bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-200/50 dark:border-indigo-800/50 space-y-1">
-                        <span className="font-semibold text-indigo-900 dark:text-indigo-200 block text-[11px]">
+                      <div className="p-2 rounded-md bg-indigo-950/40 border border-indigo-800/40 space-y-0.5">
+                        <span className="font-semibold text-indigo-300 block text-[10px]">
                           Staff Response:
                         </span>
-                        <p className="text-indigo-800 dark:text-indigo-300">
+                        <p className="text-indigo-200 text-[11px]">
                           {ticket.reply}
                         </p>
                       </div>
                     )}
 
-                    <div className="text-[10px] text-slate-400 pt-1">
+                    <div className="text-[10px] text-zinc-600 pt-0.5">
                       Submitted on {new Date(ticket.createdAt).toLocaleDateString()}
                     </div>
                   </div>

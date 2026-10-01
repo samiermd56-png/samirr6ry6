@@ -123,7 +123,7 @@ function MainApp() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors font-['Plus_Jakarta_Sans',sans-serif]">
+    <div className="min-h-screen flex flex-col bg-black text-white transition-colors font-['Plus_Jakarta_Sans',sans-serif]">
       
       {/* Public Header - NO admin button visible */}
       <Header
@@ -139,7 +139,7 @@ function MainApp() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 pb-16 md:pb-6">
+      <main className="flex-1 pb-14 md:pb-6">
         <UserDashboard
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -152,43 +152,43 @@ function MainApp() {
         />
       </main>
 
-      {/* Mobile Bottom Thumb Navigation Bar (Resized compact icons w-4 h-4) */}
-      <nav aria-label="Mobile Navigation" className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 flex items-center justify-around py-2 px-1 text-[11px] font-medium transition-colors">
+      {/* Mobile Bottom Thumb Navigation Bar (Compact icons w-3.5 h-3.5) */}
+      <nav aria-label="Mobile Navigation" className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-md border-t border-zinc-900 flex items-center justify-around py-1.5 px-1 text-[10px] font-medium transition-colors">
         <button
           onClick={() => setActiveTab('store')}
           className={`flex flex-col items-center gap-0.5 p-1 transition-colors ${
-            activeTab === 'store' ? 'text-indigo-600 dark:text-indigo-400 font-semibold' : 'text-slate-500'
+            activeTab === 'store' ? 'text-indigo-400 font-semibold' : 'text-zinc-400'
           }`}
         >
-          <ShoppingBag className="w-4 h-4" />
+          <ShoppingBag className="w-3.5 h-3.5" />
           <span>Store</span>
         </button>
 
         <button
           onClick={() => setActiveTab('purchases')}
           className={`flex flex-col items-center gap-0.5 p-1 transition-colors ${
-            activeTab === 'purchases' ? 'text-indigo-600 dark:text-indigo-400 font-semibold' : 'text-slate-500'
+            activeTab === 'purchases' ? 'text-indigo-400 font-semibold' : 'text-zinc-400'
           }`}
         >
-          <Shield className="w-4 h-4" />
+          <Shield className="w-3.5 h-3.5" />
           <span>Purchases</span>
         </button>
 
         <button
           onClick={() => setDepositOpen(true)}
-          className="flex flex-col items-center gap-0.5 p-1 text-emerald-600 dark:text-emerald-400 font-semibold"
+          className="flex flex-col items-center gap-0.5 p-1 text-emerald-400 font-semibold"
         >
-          <Wallet className="w-4 h-4" />
+          <Wallet className="w-3.5 h-3.5" />
           <span>Deposit</span>
         </button>
 
         <button
           onClick={() => setActiveTab('support')}
           className={`flex flex-col items-center gap-0.5 p-1 transition-colors ${
-            activeTab === 'support' ? 'text-indigo-600 dark:text-indigo-400 font-semibold' : 'text-slate-500'
+            activeTab === 'support' ? 'text-indigo-400 font-semibold' : 'text-zinc-400'
           }`}
         >
-          <Headphones className="w-4 h-4" />
+          <Headphones className="w-3.5 h-3.5" />
           <span>Support</span>
         </button>
       </nav>

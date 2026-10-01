@@ -100,28 +100,28 @@ export const DepositModal: React.FC<DepositModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-xs animate-in fade-in duration-150">
+      <div className="relative w-full max-w-lg rounded-2xl bg-[#0a0a0a] p-4 sm:p-6 shadow-2xl border border-zinc-800 text-white transition-colors max-h-[90vh] overflow-y-auto">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          className="absolute right-3.5 top-3.5 p-1 text-zinc-400 hover:text-white rounded-md hover:bg-zinc-800 transition-colors"
         >
-          <X className="w-4 h-4" />
+          <X className="w-3.5 h-3.5" />
         </button>
 
         {/* Modal Header */}
-        <div className="mb-5">
+        <div className="mb-4">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
-              <Wallet className="w-4 h-4" />
+            <div className="p-1 rounded-md bg-emerald-950/60 text-emerald-400 border border-emerald-800/40">
+              <Wallet className="w-3.5 h-3.5" />
             </div>
             <div>
-              <h2 className="text-base font-bold font-['Syne',sans-serif] text-slate-900 dark:text-white">
+              <h2 className="text-sm sm:text-base font-bold font-['Syne',sans-serif] text-white">
                 Add Funds to Wallet
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-[11px] text-zinc-400">
                 Deposit via bKash, Nagad, or Rocket with manual TrxID verification
               </p>
             </div>
@@ -129,100 +129,100 @@ export const DepositModal: React.FC<DepositModalProps> = ({
         </div>
 
         {error && (
-          <div className="mb-4 flex items-center gap-2 p-2.5 text-xs text-rose-700 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-300 rounded-lg border border-rose-200/50">
-            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+          <div className="mb-3 flex items-center gap-2 p-2 text-xs text-rose-300 bg-rose-950/40 rounded-lg border border-rose-800/40">
+            <AlertCircle className="w-3 h-3 shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         {success && (
-          <div className="mb-4 flex items-center gap-2 p-2.5 text-xs text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 dark:text-emerald-300 rounded-lg border border-emerald-200/50">
-            <ShieldCheck className="w-4 h-4 shrink-0" />
+          <div className="mb-3 flex items-center gap-2 p-2 text-xs text-emerald-300 bg-emerald-950/40 rounded-lg border border-emerald-800/40">
+            <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
             <span>{success}</span>
           </div>
         )}
 
         {/* Payment Method Selector */}
-        <div className="mb-4">
-          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">
+        <div className="mb-3.5">
+          <label className="block text-[11px] font-semibold text-zinc-300 mb-1.5">
             Select Payment Method
           </label>
           <div className="grid grid-cols-3 gap-2">
             <button
               type="button"
               onClick={() => setSelectedMethod('bkash')}
-              className={`py-2 px-3 text-xs font-semibold rounded-xl border flex flex-col items-center gap-1 transition-all ${
+              className={`py-1.5 px-2 text-xs font-semibold rounded-lg border flex flex-col items-center gap-0.5 transition-all ${
                 selectedMethod === 'bkash'
-                  ? 'border-pink-500 bg-pink-50/60 text-pink-700 dark:bg-pink-950/40 dark:text-pink-300 ring-2 ring-pink-500/20'
-                  : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-300'
+                  ? 'border-pink-500 bg-pink-950/40 text-pink-300 ring-1 ring-pink-500/40'
+                  : 'border-zinc-850 text-zinc-400 bg-zinc-950 hover:border-zinc-700'
               }`}
             >
-              <span className="font-bold text-sm tracking-wide">bKash</span>
-              <span className="text-[10px] opacity-80">Send Money</span>
+              <span className="font-bold text-xs">bKash</span>
+              <span className="text-[9px] opacity-75">Send Money</span>
             </button>
 
             <button
               type="button"
               onClick={() => setSelectedMethod('nagad')}
-              className={`py-2 px-3 text-xs font-semibold rounded-xl border flex flex-col items-center gap-1 transition-all ${
+              className={`py-1.5 px-2 text-xs font-semibold rounded-lg border flex flex-col items-center gap-0.5 transition-all ${
                 selectedMethod === 'nagad'
-                  ? 'border-amber-500 bg-amber-50/60 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 ring-2 ring-amber-500/20'
-                  : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-300'
+                  ? 'border-amber-500 bg-amber-950/40 text-amber-300 ring-1 ring-amber-500/40'
+                  : 'border-zinc-850 text-zinc-400 bg-zinc-950 hover:border-zinc-700'
               }`}
             >
-              <span className="font-bold text-sm tracking-wide">Nagad</span>
-              <span className="text-[10px] opacity-80">Send Money</span>
+              <span className="font-bold text-xs">Nagad</span>
+              <span className="text-[9px] opacity-75">Send Money</span>
             </button>
 
             <button
               type="button"
               onClick={() => setSelectedMethod('rocket')}
-              className={`py-2 px-3 text-xs font-semibold rounded-xl border flex flex-col items-center gap-1 transition-all ${
+              className={`py-1.5 px-2 text-xs font-semibold rounded-lg border flex flex-col items-center gap-0.5 transition-all ${
                 selectedMethod === 'rocket'
-                  ? 'border-purple-500 bg-purple-50/60 text-purple-700 dark:bg-purple-950/40 dark:text-purple-300 ring-2 ring-purple-500/20'
-                  : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-300'
+                  ? 'border-purple-500 bg-purple-950/40 text-purple-300 ring-1 ring-purple-500/40'
+                  : 'border-zinc-850 text-zinc-400 bg-zinc-950 hover:border-zinc-700'
               }`}
             >
-              <span className="font-bold text-sm tracking-wide">Rocket</span>
-              <span className="text-[10px] opacity-80">Send Money</span>
+              <span className="font-bold text-xs">Rocket</span>
+              <span className="text-[9px] opacity-75">Send Money</span>
             </button>
           </div>
         </div>
 
         {/* Selected Gateway Details Box */}
-        <div className="mb-4 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80">
-          <div className="flex items-center justify-between mb-1.5">
-            <span className="text-[11px] font-medium text-slate-500 uppercase tracking-wider">
+        <div className="mb-3.5 p-3 rounded-xl bg-zinc-950 border border-zinc-850">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-[10px] font-medium text-zinc-400 uppercase tracking-wider">
               {selectedMethod.toUpperCase()} {currentGateway.type} NUMBER
             </span>
-            <span className="text-[11px] text-slate-500">
+            <span className="text-[10px] text-zinc-400">
               Min: {currencySymbol}{currentGateway.minDeposit} · Max: {currencySymbol}{currentGateway.maxDeposit}
             </span>
           </div>
 
-          <div className="flex items-center justify-between gap-2 p-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-            <span className="font-mono text-sm font-bold tracking-wider text-slate-900 dark:text-white">
+          <div className="flex items-center justify-between gap-2 p-1.5 rounded-lg bg-black border border-zinc-800">
+            <span className="font-mono text-xs font-bold tracking-wider text-white">
               {currentGateway.number}
             </span>
             <button
               type="button"
               onClick={() => copyToClipboard(currentGateway.number)}
-              className="flex items-center gap-1 px-2 py-1 text-[11px] font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 rounded hover:bg-indigo-100 transition-colors"
+              className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-indigo-300 bg-indigo-950/60 rounded hover:bg-indigo-900/60 transition-colors"
             >
-              {copied ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+              {copied ? <Check className="w-2.5 h-2.5 text-emerald-400" /> : <Copy className="w-2.5 h-2.5" />}
               <span>{copied ? 'Copied' : 'Copy'}</span>
             </button>
           </div>
 
-          <p className="mt-2 text-[11px] text-slate-500 leading-relaxed">
+          <p className="mt-1.5 text-[10px] text-zinc-400 leading-relaxed">
             {currentGateway.instructions}
           </p>
         </div>
 
         {/* Deposit Submission Form */}
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-2.5">
           <div>
-            <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+            <label className="block text-[11px] font-medium text-zinc-300 mb-1">
               Your Sending Phone Number
             </label>
             <input
@@ -231,13 +231,13 @@ export const DepositModal: React.FC<DepositModalProps> = ({
               value={senderNumber}
               onChange={e => setSenderNumber(e.target.value)}
               placeholder="e.g. 01700-123456"
-              className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+              className="w-full px-2.5 py-1.5 text-xs rounded-md border border-zinc-800 bg-black text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-700"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2.5">
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+              <label className="block text-[11px] font-medium text-zinc-300 mb-1">
                 Amount ({currencySymbol})
               </label>
               <input
@@ -248,12 +248,12 @@ export const DepositModal: React.FC<DepositModalProps> = ({
                 value={amount}
                 onChange={e => setAmount(e.target.value)}
                 placeholder="500"
-                className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 tabular-nums"
+                className="w-full px-2.5 py-1.5 text-xs rounded-md border border-zinc-800 bg-black text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-700 tabular-nums"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+              <label className="block text-[11px] font-medium text-zinc-300 mb-1">
                 Transaction ID (TrxID)
               </label>
               <input
@@ -262,7 +262,7 @@ export const DepositModal: React.FC<DepositModalProps> = ({
                 value={trxId}
                 onChange={e => setTrxId(e.target.value.toUpperCase())}
                 placeholder="e.g. 9B8A7C6D5"
-                className="w-full px-3 py-2 text-xs font-mono uppercase rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                className="w-full px-2.5 py-1.5 text-xs font-mono uppercase rounded-md border border-zinc-800 bg-black text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-700"
               />
             </div>
           </div>
@@ -270,14 +270,14 @@ export const DepositModal: React.FC<DepositModalProps> = ({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 mt-2 flex items-center justify-center gap-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition-colors disabled:opacity-50 shadow-xs"
+            className="w-full py-2 mt-1.5 flex items-center justify-center gap-1.5 text-xs font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-500 transition-colors disabled:opacity-50 shadow-xs"
           >
             <span>{loading ? 'Submitting...' : 'Submit Deposit for Verification'}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3 h-3" />
           </button>
         </form>
 
-        <p className="mt-3 text-center text-[11px] text-slate-400">
+        <p className="mt-2.5 text-center text-[10px] text-zinc-500">
           Deposits are reviewed and credited within 5 to 15 minutes.
         </p>
       </div>

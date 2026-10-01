@@ -443,8 +443,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   // IF NOT LOGGED IN AS ADMIN -> Show Secure Admin Login Portal
   if (!isAdminLoggedIn) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-slate-950 text-slate-100 font-['Plus_Jakarta_Sans',sans-serif]">
-        <div className="w-full max-w-md p-8 rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl space-y-6">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-black text-slate-100 font-['Plus_Jakarta_Sans',sans-serif]">
+        <div className="w-full max-w-md p-8 rounded-3xl bg-[#0a0a0a] border border-zinc-800 shadow-2xl space-y-6">
           <div className="text-center space-y-2">
             <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center mx-auto shadow-sm">
               <Shield className="w-6 h-6" />
@@ -506,7 +506,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
   // LOGGED IN ADMIN CONSOLE
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row font-['Plus_Jakarta_Sans',sans-serif]">
+    <div className="min-h-screen bg-black text-slate-100 flex flex-col md:flex-row font-['Plus_Jakarta_Sans',sans-serif]">
       
       {/* Toast Feedback */}
       {actionSuccess && (
